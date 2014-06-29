@@ -10,7 +10,7 @@ benchmark_command(){
 }
 
 rm -f converted_ffmpeg_images/*
-FFMPEG="ffmpeg -i {} -vf scale=640:-1 converted_ffmpeg_{}"
+FFMPEG="ffmpeg -i {} -vf 'scale=640:-1 [in], movie=watermark.png [watermark]; [in][watermark] overlay=main_w-overlay_w-10:main_h-overlay_h-10 [out]' converted_ffmpeg_{}"
 benchmark_command $FFMPEG
 
 rm -f converted_imagemagick_images/*
